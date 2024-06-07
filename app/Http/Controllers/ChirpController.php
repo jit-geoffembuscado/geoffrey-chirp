@@ -1,28 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Resources\ChirpCollection;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Chirp;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ChirpController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index(): View
     {
-        // For API Response:
-        // return new ChirpCollection(Chirp::with('user')->latest()->get());
-        // For Web View Response:
+        //
+        // return response('Hello, World!');
         return view('chirps.index', [
-            'chirps' => new ChirpCollection(Chirp::with('user')->latest()->get())
-            // 'chirps' => Chirp::with('user')->latest()->get(),
+            'chirps' => Chirp::with('user')->latest()->get(),
         ]);
     }
 
