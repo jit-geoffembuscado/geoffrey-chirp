@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ChirpCollection;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Chirp;
@@ -16,9 +17,12 @@ class ChirpController extends Controller
      */
     public function index() : View
     {
-        //
+        // For API Response:
+        // return new ChirpCollection(Chirp::with('user')->latest()->get());
+        // For Web View Response:
         return view('chirps.index', [
-            'chirps' => Chirp::with('user')->latest()->get(),
+            'chirps' => new ChirpCollection(Chirp::with('user')->latest()->get())
+            // 'chirps' => Chirp::with('user')->latest()->get(),
         ]);
     }
 
